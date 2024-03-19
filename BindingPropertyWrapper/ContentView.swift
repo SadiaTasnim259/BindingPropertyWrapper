@@ -7,15 +7,34 @@
 
 import SwiftUI
 
+//parent view
 struct ContentView: View {
+    @State var backgroundColor: Color = .gray
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack{
+            backgroundColor
+                .ignoresSafeArea(.all)
+            ButtonView(backgroundColor: $backgroundColor) // taking child views value for parent view
         }
-        .padding()
+    }
+}
+
+
+//child view
+struct ButtonView: View{
+    @Binding var backgroundColor: Color // Binding with parentview from here
+    var body: some View{
+        Button {
+            backgroundColor = .brown
+        } label: {
+            Text("Button")
+                .foregroundColor(.white)
+                .padding()
+                .padding(.horizontal)
+                .background(Color.blue)
+                .cornerRadius(15)
+        }
+
     }
 }
 
